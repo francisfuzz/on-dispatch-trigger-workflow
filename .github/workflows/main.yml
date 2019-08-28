@@ -15,11 +15,26 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        # ensure we're on the `master` branch.
         git checkout master
+        
+        # create or update `dates.txt`
         touch dates.txt
+        
+        # append the current datetime to the end of `dates.txt`
         echo `date` >> dates.txt
+        
+        # reveal what `dates.txt` looks like in the logs
         cat dates.txt
+        
+        # Git: set identity
+        git config --global user.email "15894826+francisfuzz@users.noreply.github.com"
+        git config --global user.name "francisfuzz"
+        
+        # Git: set remote  
         git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+  
+        # Git: add, commit, and push changes
         git add dates.txt
         git commit -m "github-actions: update dates.txt"
         GIT_TRACE=1 git push --verbose
