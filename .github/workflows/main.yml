@@ -20,4 +20,6 @@ jobs:
         echo `date` >> dates.txt
         cat dates.txt
         git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        git add dates.txt
+        git commit -m "github-actions: update dates.txt"
         GIT_TRACE=1 git push --verbose
