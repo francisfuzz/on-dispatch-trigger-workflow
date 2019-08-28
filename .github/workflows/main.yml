@@ -1,12 +1,6 @@
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions#name
 name: Main
 
-# Give it a try!
-# curl -v -H "Accept: application/vnd.github.everest-preview+json" \
-#  -H "Authorization: token $TOKEN" \
-#   https://api.github.com/repos/:/dispatches \
-#   -d '{"event_type":"update-dates-file"}'
-
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
 on: repository_dispatch
 
