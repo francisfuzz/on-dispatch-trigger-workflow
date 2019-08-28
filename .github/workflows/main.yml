@@ -1,18 +1,41 @@
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions#name
 name: Main
 
+# Give it a try!
+# curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+#  -H "Authorization: token $TOKEN" \
+#   https://api.github.com/repos/:/dispatches \
+#   -d '{"event_type":"update-dates-file"}'
+
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
 on: repository_dispatch
 
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobs
 jobs:
-  build:
 
+  # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_id
+  first_job:
+
+    # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idruns-on
     runs-on: ubuntu-latest
-    
+  
+    # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idsteps
     steps:
+    
+    # https://help.github.com/en/articles/virtual-environments-for-github-actions#default-environment-variables
+    # https://github.com/actions/checkout
     - uses: actions/checkout@v1
+    
+    # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstepsid
     - name: Update dates.txt with new date
+
+      # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstepsenv
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       run: |
+
         # ensure we're on the `master` branch.
         git checkout master
         
@@ -26,8 +49,8 @@ jobs:
         cat dates.txt
         
         # Git: set identity
+        git config --global user.name "GITHUB_TOKEN"
         git config --global user.email "15894826+francisfuzz@users.noreply.github.com"
-        git config --global user.name "francisfuzz"
         
         # Git: set remote  
         git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
